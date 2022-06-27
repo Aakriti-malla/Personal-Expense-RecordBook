@@ -48,7 +48,7 @@ class NewTransaction extends StatelessWidget {
                   ),
                 ),
                 controller: titleController,
-                onSubmitted: (_) => SubmitData,
+                onSubmitted: (_) => SubmitData(),
                 // onChanged: (value) {
                 //   titleInput = value;
                 // },
@@ -67,7 +67,7 @@ class NewTransaction extends StatelessWidget {
                 ),
                 controller: amountController,
                 keyboardType: TextInputType.number,
-                onSubmitted: (_) => SubmitData,
+                onSubmitted: (_) => SubmitData(),
                 // onChanged: (value) => amountInput = value,
               ),
               TextButton(

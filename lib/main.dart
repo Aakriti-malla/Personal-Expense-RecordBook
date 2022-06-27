@@ -27,6 +27,13 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(9, 12, 155, 100),
         title: Text('Plan Book'),
+        actions: <Widget>[
+          IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.add,
+              ))
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -47,6 +54,14 @@ class MyHomePage extends StatelessWidget {
             UserTransactions()
           ],
         ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Color.fromRGBO(9, 12, 155, 100),
+        child: Icon(
+          Icons.add_circle,
+        ),
+        onPressed: () {},
       ),
     );
   }
