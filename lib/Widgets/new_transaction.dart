@@ -7,6 +7,19 @@ class NewTransaction extends StatelessWidget {
 
   NewTransaction(this.addTx);
 
+  void SubmitData() {
+    final enterTitle = titleController.text;
+    final enterAmount = double.parse(amountController.text);
+
+    if (enterTitle.isEmpty || enterAmount <= 0) {
+      return;
+    }
+    addTx(
+      enterTitle,
+      enterAmount,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,6 +48,7 @@ class NewTransaction extends StatelessWidget {
                   ),
                 ),
                 controller: titleController,
+                onSubmitted: (_) => SubmitData,
                 // onChanged: (value) {
                 //   titleInput = value;
                 // },
@@ -52,15 +66,12 @@ class NewTransaction extends StatelessWidget {
                   ),
                 ),
                 controller: amountController,
+                keyboardType: TextInputType.number,
+                onSubmitted: (_) => SubmitData,
                 // onChanged: (value) => amountInput = value,
               ),
               TextButton(
-                onPressed: () {
-                  addTx(
-                    titleController.text,
-                    double.parse(amountController.text),
-                  );
-                },
+                onPressed: () => SubmitData,
                 style: TextButton.styleFrom(
                   primary: Colors.black,
                   // Text Color
