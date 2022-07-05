@@ -121,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
         elevation: 20,
         onPressed: () => _startAddNewTransaction(context),
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(16.0))),
+            borderRadius: BorderRadius.all(Radius.circular(20.0))),
         backgroundColor: Color.fromRGBO(9, 12, 155, 100),
         child: Icon(Icons.add),
         splashColor: Color.fromRGBO(60, 55, 68, 100),
