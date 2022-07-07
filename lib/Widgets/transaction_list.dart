@@ -46,84 +46,43 @@ class TransactionList extends StatelessWidget {
           : ListView.builder(
               itemBuilder: (ctx, index) {
                 return Card(
+                  elevation: 2,
                   color: Color.fromRGBO(245, 255, 241, 25),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
+                  margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
                   child: Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Color.fromRGBO(48, 102, 190, 100),
-                          Color.fromRGBO(180, 197, 228, 100),
-                        ],
-                      ),
-                      borderRadius: BorderRadius.circular(15),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 0.2,
-                          blurRadius: 9,
-                          offset: const Offset(0, 7),
-                        )
-                      ],
-                    ),
-                    child: Row(
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.symmetric(
-                            vertical: 10,
-                            horizontal: 20,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Color.fromRGBO(245, 255, 241, 25),
-
-                            // gradient: LinearGradient(
-                            //   colors: [
-                            //     Color.fromRGBO(48, 102, 190, 100),
-                            //     Color.fromRGBO(180, 197, 228, 100),
-                            //   ],
-                            // ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 0.2,
-                                blurRadius: 9,
-                                offset: const Offset(0, 4),
-                              )
-                            ],
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          padding: EdgeInsets.all(15),
-                          child: Text(
-                            '\u{20B9} ${transactions[index].amount.toStringAsFixed(2)}',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: Colors.black,
+                    // decoration: BoxDecoration(
+                    //   gradient: LinearGradient(
+                    //     colors: [
+                    //       Color.fromRGBO(48, 102, 190, 100),
+                    //       Color.fromRGBO(180, 197, 228, 100),
+                    //     ],
+                    //   ),
+                    // ),
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: Color.fromRGBO(9, 12, 155, 100),
+                        radius: 30,
+                        child: Padding(
+                          padding: EdgeInsets.all(5),
+                          child: FittedBox(
+                            child: Text(
+                              '\u{20B9} ${transactions[index].amount}',
+                              style: TextStyle(color: Colors.white),
                             ),
                           ),
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              transactions[index].title,
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              DateFormat.yMMMMEEEEd()
-                                  .format(transactions[index].date),
-                              style: TextStyle(
-                                color: Color.fromRGBO(28, 60, 113, 1),
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
+                      ),
+                      title: Text(
+                        transactions[index].title,
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      subtitle: Text(
+                        DateFormat.yMMMMEEEEd()
+                            .format(transactions[index].date),
+                      ),
                     ),
                   ),
                 );
