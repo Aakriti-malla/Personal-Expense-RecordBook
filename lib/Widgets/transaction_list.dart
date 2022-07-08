@@ -4,24 +4,15 @@ import 'package:intl/intl.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
+  final Function deleteTx;
 
-  TransactionList(this.transactions);
+  TransactionList(this.transactions, this.deleteTx);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 580,
+      height: 560,
       margin: EdgeInsets.all(10),
-      // decoration: BoxDecoration(
-      //   boxShadow: [
-      //     BoxShadow(
-      //       color: Colors.blue.withOpacity(0.2),
-      //       // spreadRadius: 0.2,
-      //       blurRadius: 10,
-      //       offset: const Offset(0, 10),
-      //     )
-      //   ],
-      // ),
       child: transactions.isEmpty
           ? Column(
               children: <Widget>[
@@ -79,6 +70,13 @@ class TransactionList extends StatelessWidget {
                     ),
                     subtitle: Text(
                       DateFormat.yMMMMEEEEd().format(transactions[index].date),
+                    ),
+                    trailing: IconButton(
+                      icon: Icon(
+                        Icons.delete,
+                        color: Colors.redAccent[200],
+                      ),
+                      onPressed: () => deleteTx(transactions[index].id),
                     ),
                   ),
                 );
