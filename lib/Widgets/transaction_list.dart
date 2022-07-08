@@ -47,42 +47,38 @@ class TransactionList extends StatelessWidget {
               itemBuilder: (ctx, index) {
                 return Card(
                   elevation: 2,
-                  color: Color.fromRGBO(245, 255, 241, 25),
+                  // color: Color.fromRGBO(245, 255, 241, 25),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.circular(100),
                   ),
                   margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
-                  child: Container(
-                    // decoration: BoxDecoration(
-                    //   gradient: LinearGradient(
-                    //     colors: [
-                    //       Color.fromRGBO(48, 102, 190, 100),
-                    //       Color.fromRGBO(180, 197, 228, 100),
-                    //     ],
-                    //   ),
-                    // ),
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundColor: Color.fromRGBO(9, 12, 155, 100),
-                        radius: 30,
-                        child: Padding(
-                          padding: EdgeInsets.all(5),
-                          child: FittedBox(
-                            child: Text(
-                              '\u{20B9} ${transactions[index].amount}',
-                              style: TextStyle(color: Colors.white),
-                            ),
+
+                  child: ListTile(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.horizontal(
+                          right: Radius.circular(100),
+                          left: Radius.circular(100)),
+                    ),
+                    tileColor: Colors.blue[50],
+                    leading: CircleAvatar(
+                      backgroundColor: Color.fromRGBO(9, 12, 155, 100),
+                      radius: 30,
+                      child: Padding(
+                        padding: EdgeInsets.all(4),
+                        child: FittedBox(
+                          child: Text(
+                            '\u{20B9} ${transactions[index].amount}',
+                            style: TextStyle(color: Colors.white),
                           ),
                         ),
                       ),
-                      title: Text(
-                        transactions[index].title,
-                        style: TextStyle(color: Colors.black),
-                      ),
-                      subtitle: Text(
-                        DateFormat.yMMMMEEEEd()
-                            .format(transactions[index].date),
-                      ),
+                    ),
+                    title: Text(
+                      transactions[index].title,
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    subtitle: Text(
+                      DateFormat.yMMMMEEEEd().format(transactions[index].date),
                     ),
                   ),
                 );

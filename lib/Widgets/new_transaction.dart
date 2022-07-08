@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class NewTransaction extends StatefulWidget {
   final Function addTx;
@@ -11,22 +12,61 @@ class NewTransaction extends StatefulWidget {
 
 class _NewTransactionState extends State<NewTransaction> {
   final titleController = TextEditingController();
+  final _amountController = TextEditingController();
+  DateTime? _selectedDate;
 
-  final amountController = TextEditingController();
-
-  void SubmitData() {
+  void _SubmitData() {
+    if (_amountController.text.isEmpty) {
+      return;
+    }
     final enterTitle = titleController.text;
-    final enterAmount = double.parse(amountController.text);
+    final enterAmount = double.parse(_amountController.text);
 
-    if (enterTitle.isEmpty || enterAmount <= 0) {
+    if (enterTitle.isEmpty || enterAmount <= 0 || _selectedDate == null) {
       return;
     }
     widget.addTx(
       enterTitle,
       enterAmount,
+      _selectedDate,
     );
 
     Navigator.of(context).pop();
+  }
+
+  void _presentDatePicker() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2022),
+      lastDate: DateTime.now(),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.light(
+              primary: Color.fromRGBO(9, 12, 155, 100), // <-- SEE HERE
+              onPrimary: Colors.white, // <-- SEE HERE
+              onSurface: Color.fromRGBO(9, 12, 155, 50), // <-- SEE HERE
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                primary: Color.fromRGBO(48, 102, 190, 50), // button text color
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
+    ).then(
+      (pickedDate) {
+        if (pickedDate == null) {
+          return;
+        }
+        setState(() {
+          _selectedDate = pickedDate;
+        });
+      },
+    );
   }
 
   @override
@@ -57,7 +97,7 @@ class _NewTransactionState extends State<NewTransaction> {
                   ),
                 ),
                 controller: titleController,
-                onSubmitted: (_) => SubmitData(),
+                onSubmitted: (_) => _SubmitData(),
                 // onChanged: (value) {
                 //   titleInput = value;
                 // },
@@ -74,18 +114,24 @@ class _NewTransactionState extends State<NewTransaction> {
                         color: Color.fromRGBO(9, 12, 155, 100), width: 2.0),
                   ),
                 ),
-                controller: amountController,
+                controller: _amountController,
                 keyboardType: TextInputType.number,
-                onSubmitted: (_) => SubmitData(),
+                onSubmitted: (_) => _SubmitData(),
                 // onChanged: (value) => amountInput = value,
               ),
               Container(
                 height: 80,
                 child: Row(
                   children: <Widget>[
-                    Text('No date chosen!'),
+                    Expanded(
+                      child: Text(
+                        _selectedDate == null
+                            ? 'No date chosen!'
+                            : 'Date:  ${DateFormat.yMMMd().format(_selectedDate!)}',
+                      ),
+                    ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: _presentDatePicker,
                       child: Text(
                         'Choose Date',
                         style: TextStyle(
@@ -98,15 +144,19 @@ class _NewTransactionState extends State<NewTransaction> {
                 ),
               ),
               ElevatedButton(
-                onPressed: () => SubmitData,
-                // style: TextButton.styleFrom(
-                //   primary: Colors.black,
-                //   // Text Color
-                // ),
-
+                onPressed: () => _SubmitData,
+                style: ElevatedButton.styleFrom(
+                  primary: Color.fromRGBO(9, 12, 155, 100),
+                  shadowColor: Color.fromRGBO(48, 102, 190, 12),
+                  onPrimary: Colors.white,
+                  onSurface: Colors.grey,
+                  elevation: 4,
+                  shape: const StadiumBorder(),
+                ),
                 child: Text(
-                  'Add transaction',
-                  style: TextStyle(fontSize: 16),
+                  'Add Transaction',
+                  style:
+                      TextStyle(fontSize: 16, fontFamily: 'Quicksand-Regular'),
                 ),
               )
             ],
